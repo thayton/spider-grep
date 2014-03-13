@@ -45,8 +45,14 @@ if __name__ == '__main__':
         z = BeautifulSoup(br.response().read())
 
         page = br.geturl()
-        print '\n'.join(['%s: %s' % (page, x.parent) for x in z.findAll(text=r)])
-        
+
+        for x in z.findAll(text=r):
+            if x.parent.name == 'a':
+                u = '%s' % urlparse.urljoin(br.geturl(), x.parent['href'])                
+                if u not in reported:
+                    reported.append(u)
+                    print page + ':' + x
+                    
         for y in z.findAll('a', href=r):
             u = '%s' % urlparse.urljoin(br.geturl(), y['href'])
             if u not in reported:
