@@ -1,0 +1,6 @@
+venv
+*.pyc
+staticfiles
+*~
+*.swp
+*#
