@@ -62,13 +62,13 @@ if __name__ == '__main__':
                 u = '%s' % urlparse.urljoin(br.geturl(), x.parent['href'])                
                 if u not in reported:
                     reported.append(u)
-                    print page + ':' + u
+                    print page + ': ' + u
             else:
-                print page + ':' + x
+                print page + ': ' + x
                     
         for y in z.findAll('a', href=r):
             u = '%s' % urlparse.urljoin(br.geturl(), y['href'])
             if u not in reported:
-                print page + ':', u
+                print page + ': ', u
                 reported.append(u)
                 print reported
