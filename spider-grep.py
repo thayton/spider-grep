@@ -39,6 +39,17 @@ if __name__ == '__main__':
 
         url = urlparse.urljoin(br.geturl(), a['href'])
 
+        if url.endswith('.pdf'):
+            print 'Skipping PDF file - %s' % url
+            continue
+
+        cur_domain = urlparse.urlparse(br.geturl()).netloc
+        new_domain = urlparse.urlparse(url).netloc
+
+        if cur_domain != new_domain:
+            print 'Skipping url in different domain - %s' % url
+            continue
+
         print 'Opening page %s' % url
         br.open(url)        
 
@@ -51,7 +62,9 @@ if __name__ == '__main__':
                 u = '%s' % urlparse.urljoin(br.geturl(), x.parent['href'])                
                 if u not in reported:
                     reported.append(u)
-                    print page + ':' + x
+                    print page + ':' + u
+            else:
+                print page + ':' + x
                     
         for y in z.findAll('a', href=r):
             u = '%s' % urlparse.urljoin(br.geturl(), y['href'])
